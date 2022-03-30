@@ -12,7 +12,7 @@
 
 
 #### 项目视频
-[基于Spring小程序商城](https://www.bilibili.com/video/BV1c54y1G7W1)
+[基于Spring小程序商城](https://www.bilibili.com/video/BV1dP4y1N7wp/)
 
 
 
