@@ -1,0 +1,36 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title"></view>
+    </view>
+</view>
+<view class="box" style="top: 60px">
+    <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+            <text class="cuIcon-title text-orange "></text>
+            消息列表
+        </view>
+    </view>
+    <view class="cu-card case no-card">
+        <view class="cu-list menu-avatar">
+            <view class="cu-item " wx:for="{{ messageList }}" bindtap='messageDetail'  data-takeName='{{ item.takeUserName }}'  data-sendName='{{ item.sendUserName }}' data-take='{{ item.takeUser }}' data-send='{{ item.sendUser }}'>
+                <view wx:if="{{ item.sendUser == userInfo.id }}" class="cu-avatar radius lg" style="background-image:url({{ item.takeUserAvatar }});"></view>
+                <view wx:else class="cu-avatar radius lg" style="background-image:url({{ item.sendUserAvatar }});"></view>
+                <view class="content">
+                    <view class="text-pink">
+                        <text class="text-cut">{{ item.sendUser == userInfo.id ? item.takeUserName : item.sendUserName }}</text>
+                    </view>
+                    <view class="text-gray text-sm flex">
+                        <text class="text-cut">{{ item.content }}</text>
+                    </view>
+                </view>
+                <view class="action">
+                    <view class="text-grey text-xs">{{ item.days }}</view>
+                    <!-- <view class="cu-tag round bg-red sm">5</view> -->
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <van-empty wx:if="{{ messageList.length === 0 }}" description="暂无消息" style="height: 300px;width: 100%" />
+    </view>
+</view>

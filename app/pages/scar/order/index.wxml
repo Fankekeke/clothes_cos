@@ -1,0 +1,108 @@
+<!--状态栏区域-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class='action canui-head-title' open-type="navigateBack" hover-class="none">
+            <text class='icon-back'></text> 结算订单
+        </navigator>
+    </view>
+</view>
+
+<view class="box" style="top: {{CustomBar}}px;">
+    <view class="canui-address">
+        <view class="cu-list menu bg-white">
+            <view class="cu-item">
+                <view class='content'>
+                    <view class="text-df">{{ addressInfo.name }} <text>{{ addressInfo.phone }}</text></view>
+                    <view class='text-gray text-sm canui-xzwz'>{{ addressInfo.address }}</view>
+                </view>
+                <!-- <view class='action'><view class='text-grey icon-right'></view></view> -->
+            </view>
+            <view class="canui-lines"></view>
+        </view>
+    </view>
+
+    <view class="canui-card-order">
+        <view class="canui-order-item bg-white" wx:for="{{ orderList }}">
+            <view class="head-title-box">
+                <text class="icon-shop"></text>
+                <text>{{ item.userName }}的小店</text>
+                <text class="icon-right"></text>
+            </view>
+            <navigator open-type="navigate" hover-class='none' url="/pages/order/details/index">
+                <view class="cu-list menu menu-avatar">
+                    <view class="cu-item">
+                        <view class="cu-avatar radius lg" style="background-image:url(http://127.0.0.1:9527/imagesWeb/{{ item.image }});"></view>
+                        <view class='content canui-xzwz tow' style="padding: 10px;">
+                            {{ item.name }}
+                            <view wx:if="{{ item.type == 1 }}">上衣</view>
+                            <view wx:if="{{ item.type == 2 }}">下衣</view>
+                            <view wx:if="{{ item.type == 3 }}">首饰</view>
+                            <view wx:if="{{ item.type == 4 }}">鞋子</view>
+                            <view wx:if="{{ item.type == 5 }}">内衣</view>
+                            <view wx:if="{{ item.type == 6 }}">化妆品</view>
+                        </view>
+                        <view class='action'>
+                            <view class='text-price'>{{ item.price }}</view>
+                            <view class="text-xs text-right text-gray">x1</view>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class='content'>
+                        共 <text class="text-red"> 1</text> 件商品
+                    </view>
+                    <view class='action'>
+                        合计 <text class="text-price text-red">{{ item.price }}</text>
+                    </view>
+                </view>
+                <!-- <view class="cu-item arrow">
+                    <view class='content'>会员卡</view>
+                    <view class='action'>
+                        无可用
+                    </view>
+                </view> -->
+            </view>
+            <!-- <view class="cu-form-group bg-white canui-input">
+                <view class='title'>备注</view>
+                <input placeholder="两字短标题" class='radius' name='input'></input>
+            </view> -->
+        </view>
+    </view>
+
+    <!-- <view class="canui-coupon">
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item arrow">
+                <view class='content'>优惠券</view>
+                <view class='action'>
+                    无可用
+                </view>
+            </view>
+        </view>
+    </view> -->
+
+    <view class="order-price-log">
+        <view class="bg-white log-card">
+            <view class="log-list">
+                <text>商品总价</text> <text class="text-price canui-text-right">{{ allPrice }}</text>
+            </view>
+            <view class="log-list">
+                <text>运费(快递)</text> <text class="text-price canui-text-right text-red">0.00</text>
+            </view>
+            <view class="log-list bg-white text-df">
+                <text>订单总价</text><text class="text-sm text-gray">（手续费除外）</text>
+                <text class="text-price canui-text-right text-red">{{ allPrice }}</text>
+            </view>
+        </view>
+    </view>
+
+</view>
+
+<view class="bg-white canui-foor-fixed canui-submit-view {{TabbarBot=='y'?'canui-submit-order':''}}">
+    <view class="bg-red light text-sm canui-pay-tip">您的货物预定1~3内发货</view>
+    <view class="canui-submit">
+        <text class='text-red text-price canui-price'>{{ allPrice }}</text>
+        <text class='bg-red canui-submit-btn' bindtap='submit'>提交订单</text>
+    </view>
+</view>

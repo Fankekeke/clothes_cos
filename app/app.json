@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/home/index/index",
+    "pages/scar/index/index",
+    "pages/user/index/index",
+    "pages/auth/auth",
+    "pages/user/message/index",
+    "pages/address/add/index",
+    "pages/address/edit/index",
+    "pages/coupon/add/index",
+    "pages/coupon/detail/index",
+    "pages/coupon/index/index",
+    "pages/goods/add/index",
+    "pages/goods/edit/index",
+    "pages/home/bulletin/index",
+    "pages/home/groom/index",
+    "pages/home/search/index",
+    "pages/order/detail/index",
+    "pages/order/index/index",
+    "pages/scar/order/index",
+    "pages/shop/goods/details",
+    "pages/shop/index/details",
+    "pages/shop/index/index",
+    "pages/user/address/index",
+    "pages/user/audit/index",
+    "pages/user/goods/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#39b54a",
+    "navigationBarTitleText": "shop",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#aaaaaa",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "selectedColor": "#F95A5F",
+    "list": [
+      {
+        "pagePath": "pages/home/index/index",
+        "iconPath": "img/home.png",
+        "selectedIconPath": "img/home1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/scar/index/index",
+        "iconPath": "img/goodscar.png",
+        "selectedIconPath": "img/goodscar1.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/user/message/index",
+        "iconPath": "img/message.png",
+        "selectedIconPath": "img/message1.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/user/index/index",
+        "iconPath": "img/my.png",
+        "selectedIconPath": "img/my1.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

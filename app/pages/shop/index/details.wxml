@@ -1,0 +1,63 @@
+<!--状态栏区域-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class='action canui-head-title' open-type="navigateBack" delta="1" hover-class="none">
+            <text class='icon-back'></text> 店铺详情
+        </navigator>
+    </view>
+</view>
+
+<view class="box" style="top: {{CustomBar}}px;">
+    <view class="cu-list menu menu-avatar">
+        <view class="cu-item">
+            <view class="cu-avatar radius lg" style="background-image:url({{ shopInfo.avatar }});"></view>
+            <view class='content'>
+                <view class='text-grey'>{{ shopInfo.userName }}的小店</view>
+                <view class='text-gray text-sm'>店铺ID：{{ shopInfo.shopCode }}</view>
+            </view>
+        </view>
+        <view class="cu-item canui-jsd">
+            <view class='text-gray text-sm'>{{ shopInfo.introduction }}</view>
+        </view>
+    </view>
+
+    <view class="cu-bar bg-white solid-bottom margin-top">
+        <view class='action'>
+            <text class='icon-title text-red'></text> 店铺信息
+        </view>
+    </view>
+    <view class="cu-list menu">
+        <view class="cu-item">
+            <view class='content'>
+                <text class='text-gray'>店铺名称</text>
+            </view>
+            <view class='action'>
+                <text class='text-gray text-sm'>{{ shopInfo.userName }}的小店</text>
+            </view>
+        </view>
+        <view class="cu-item">
+            <view class='content'>
+                <text class='text-gray'>店主名称</text>
+            </view>
+            <view class='action'>
+                <text class='text-gray text-sm'>{{ shopInfo.userName }}</text>
+            </view>
+        </view>
+        <view class="cu-item">
+            <view class='content'>
+                <text class='text-gray'>服务类型</text>
+            </view>
+            <view class='action'>
+                <text class='text-gray text-sm'>{{ shopInfo.tag }}</text>
+            </view>
+        </view>
+        <view class="cu-item">
+            <view class='content'>
+                <text class='text-gray'>开店时间</text>
+            </view>
+            <view class='action'>
+                <text class='text-gray text-sm'>{{ shopInfo.statusDate }}</text>
+            </view>
+        </view>
+    </view>
+</view>

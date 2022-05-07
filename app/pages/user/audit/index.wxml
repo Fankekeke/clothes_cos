@@ -1,0 +1,35 @@
+<!-- 状态栏区域 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class='action canui-head-title' open-type="navigateBack" hover-class="none">
+            <text class='icon-back'></text>
+            申请设计师
+        </navigator>
+    </view>
+</view>
+<view class="box" style="top: {{CustomBar}}px;">
+    <br />
+    <view style="padding: 20px;display: block" wx:if="{{auditInfo === null}}">
+        <van-field model:value="{{ tag }}" label="店铺标签" placeholder="请输入" style="display: block;margin-top: 15px;" />
+        <van-field model:value="{{ content }}" label="店铺简介" type="textarea" placeholder="请输入店铺简介" style="display: block;margin-top: 15px;" autosize border="{{ false }}" />
+        <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" style="display: block;margin-top: 15px;" />
+        <van-button type="primary" block style="display: block;margin-top: 35px;" bindtap="submit">
+            提 交
+        </van-button>
+    </view>
+    <view style="padding: 20px;display: block" wx:if="{{auditInfo !== null && auditInfo.auditStatus == 1}}">
+        <view class="flex-sub text-center">
+            <view class="solid-bottom text-xl padding">
+                <text class="text-black text-bold">您的审核已通过！</text>
+            </view>
+        </view>
+    </view>
+     <view style="padding: 20px;display: block" wx:if="{{auditInfo !== null && auditInfo.auditStatus != 1}}">
+        <view class="flex-sub text-center">
+            <view class="solid-bottom text-xl padding">
+                <text class="text-black text-bold">正在等待管理员审核！</text>
+            </view>
+        </view>
+    </view>
+</view>
+<van-notify id="van-notify" />

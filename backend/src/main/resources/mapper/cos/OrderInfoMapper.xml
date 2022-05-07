@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.cos.dao.OrderInfoMapper">
+
+    <!-- 分页查询订单信息 -->
+    <select id="getOrderByPage" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.id,
+        oi.code,
+        oi.commodity_id AS commodityId,
+        oi.price,
+        oi.order_status AS orderStatus,
+        oi.create_date AS createDate,
+        ci.`code` AS commodityCode,
+        ci.`name`,
+        ci.type,
+        ci.images,
+        ci.content,
+        ci.on_put AS onPut,
+        si.introduction,
+        si.tag,
+        ui.user_name AS userName,
+        ui.avatar,
+        su.user_name AS shopName,
+        su.avatar AS shopAvatar,
+        ai.address,
+        ai.`name` AS taskUserName,
+        ai.phone
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
+        LEFT JOIN address_info ai ON ( ai.id = oi.address_id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = oi.user_id )
+        LEFT JOIN user_info su ON ( su.id = si.user_id )
+        WHERE
+        1 = 1
+        <if test="orderInfo.userName != null and orderInfo.userName != ''">
+            AND ui.user_name LIKE CONCAT('%',#{orderInfo.userName},'%')
+        </if>
+        <if test="orderInfo.shopName != null and orderInfo.shopName != ''">
+            AND su.user_name LIKE CONCAT('%',#{orderInfo.shopName},'%')
+        </if>
+        <if test="orderInfo.commodityName != null and orderInfo.commodityName != ''">
+            AND ci.`name` LIKE CONCAT('%',#{orderInfo.commodityName},'%')
+        </if>
+        <if test="orderInfo.orderStatus != null and orderInfo.orderStatus != ''">
+            AND oi.order_status = #{orderInfo.orderStatus}
+        </if>
+        <if test="orderInfo.type != null and orderInfo.type != ''">
+            AND ci.type = #{orderInfo.type}
+        </if>
+        ORDER BY oi.create_date
+    </select>
+
+    <!-- 根据用户ID获取订单 -->
+    <select id="orderListByUserId" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.`code`,
+        oi.commodity_id AS commodityId,
+        oi.price,
+        oi.order_status AS orderStatus,
+        oi.create_date AS createDate,
+        ci.`code` AS commodityCode,
+        ci.`name`,
+        ci.type,
+        ci.images,
+        ci.content,
+        ci.on_put AS onPut,
+        si.introduction,
+        si.tag,
+        su.user_name AS shopName,
+        su.avatar AS shopAvatar
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info su ON ( su.id = si.user_id )
+        WHERE
+        oi.user_id = #{ userId }
+    </select>
+
+    <!-- 订单统计 -->
+    <select id="orderRevenueData" resultType="java.util.LinkedHashMap">
+        SELECT
+        DATE_FORMAT( spo.days, '%m-%d' ) AS days,
+        COUNT( oi.`code` ) AS count,
+        IFNULL( SUM( oi.price ), 0 ) AS orderPrice
+        FROM
+        (
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 0 DAY ) days UNION
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 1 DAY ) UNION
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 2 DAY ) UNION
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 3 DAY ) UNION
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 4 DAY ) UNION
+        SELECT
+            DATE_SUB( curdate(), INTERVAL + 5 DAY ) UNION
+        SELECT
+        DATE_SUB( curdate(), INTERVAL + 6 DAY )) spo
+        LEFT JOIN order_info oi ON (
+        DATE_FORMAT( oi.create_date, '%Y-%m-%d' ) = DATE_FORMAT( spo.days, '%Y-%m-%d' ))
+        GROUP BY
+        days
+        ORDER BY days ASC
+    </select>
+
+    <!-- 本月订单量 本月收益 -->
+    <select id="orderMonthRevenue" resultType="java.util.LinkedHashMap">
+        SELECT
+        count( 1 ) AS orderNum,
+        IFNULL( SUM( oi.price ), 0 ) AS orderPrice
+        FROM
+        order_info oi
+        WHERE
+        DATE_FORMAT( oi.create_date, '%Y-%m' ) = DATE_FORMAT( NOW(), '%Y-%m' )
+    </select>
+
+    <!-- 本月收益占比 -->
+    <select id="orderPriceRate" resultType="java.util.LinkedHashMap">
+        SELECT
+        COUNT( oi.commodity_id ) AS orderNum,
+        IFNULL( SUM( oi.price ), 0 ) AS orderPrice,
+        ci.`name`
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
+        WHERE
+        1 = 1
+        AND DATE_FORMAT( oi.create_date, '%Y-%m' ) = DATE_FORMAT( NOW(), '%Y-%m' )
+        GROUP BY
+        oi.commodity_id
+    </select>
+
+    <!-- 商铺收益订单统计 -->
+    <select id="shopOrderRate" resultType="java.util.LinkedHashMap">
+        SELECT
+        COUNT( 1 ) AS orderNum,
+        IFNULL( SUM( oi.price ), 0 ) AS orderPrice,
+        ui.avatar,
+        ui.user_name,
+        si.tag,
+        si.introduction
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        WHERE
+        1 = 1
+        GROUP BY
+        si.id
+    </select>
+
+    <!-- 根据商铺获取订单统计 -->
+    <select id="shopOrderRateByComm" resultType="java.util.LinkedHashMap">
+        SELECT
+        COUNT( 1 ) AS orderNum,
+        IFNULL( SUM( oi.price ), 0 ) AS orderPrice,
+        ci.`name`
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
+        WHERE
+        1 = 1
+        AND CI.shop_id = #{ shopId }
+        GROUP BY
+        ci.id
+    </select>
+
+    <!-- 所有店铺信息 -->
+    <select id="shopList" resultType="java.util.LinkedHashMap">
+        SELECT
+        si.id,
+        ui.avatar,
+        ui.user_name AS userName
+        FROM
+        shop_info si
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        WHERE
+        1 = 1
+    </select>
+
+    <!-- 查询用户购物车 -->
+    <select id="selGoodsCart" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.id AS orderId,
+        ci.id,
+        ci.`name`,
+        ci.images,
+        ci.content,
+        ci.price,
+        oi.create_date,
+        ci.on_put,
+        ci.type,
+        ui.user_name AS userName,
+        ui.avatar
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( oi.commodity_id = ci.id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        WHERE
+        oi.order_status = 1
+        AND oi.user_id = #{ userId }
+    </select>
+
+    <!-- 根据订单ID获取订单信息 -->
+    <select id="selOrderListByOrderIds" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.code AS orderCode,
+        oi.id AS orderId,
+        oi.create_date AS orderDate,
+        oi.order_status AS orderStatus,
+        ci.id,
+        ci.`name`,
+        ci.images,
+        ci.content,
+        ci.price,
+        ci.create_date,
+        ci.on_put,
+        ci.type,
+        si.id AS shopId,
+        ui.id AS userId,
+        ui.user_name AS userName,
+        ui.avatar,
+        ai.address,
+        ai.name AS takeUser,
+        ai.phone
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( oi.commodity_id = ci.id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        LEFT JOIN address_info ai ON ( ai.id = oi.address_id )
+        WHERE
+        oi.id in
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 获取用户所有订单 -->
+    <select id="getOrderListByUserId" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.id AS orderId,
+        oi.order_status AS orderStatus,
+        oi.create_date AS createDate,
+        ci.id,
+        ci.`name`,
+        ci.images,
+        ci.content,
+        oi.price,
+        ci.on_put,
+        ci.type,
+        si.id AS shopId,
+        ui.user_name AS userName,
+        ui.avatar,
+        eva.id AS evaluationStatus,
+	    eva.content AS evaluationContent
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( oi.commodity_id = ci.id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        LEFT JOIN evaluation eva ON (eva.order_id = oi.id)
+        WHERE
+        1 = 1
+        AND oi.order_status != 1
+        AND oi.user_id = #{ userId }
+    </select>
+
+    <!-- 根据用户获取卖出的订单 -->
+    <select id="getOrderByUserId" resultType="java.util.LinkedHashMap">
+        SELECT
+        oi.id AS orderId,
+        oi.order_status AS orderStatus,
+        oi.create_date AS createDate,
+        ci.id,
+        ci.`name`,
+        ci.images,
+        ci.content,
+        oi.price,
+        ci.on_put,
+        ci.type,
+        si.id AS shopId,
+        ui.user_name AS userName,
+        ui.avatar,
+        ui1.user_name AS buyer,
+        eva.id AS evaluationStatus,
+        eva.content AS evaluationContent
+        FROM
+        order_info oi
+        LEFT JOIN commodity_info ci ON ( oi.commodity_id = ci.id )
+        LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
+        LEFT JOIN user_info ui ON ( ui.id = si.user_id )
+        LEFT JOIN user_info ui1 ON ( ui1.id = oi.user_id )
+        LEFT JOIN evaluation eva ON ( eva.order_id = oi.id )
+        WHERE
+        1 = 1
+        AND oi.order_status != 1
+        AND ui.id = #{ userId }
+    </select>
+</mapper>
