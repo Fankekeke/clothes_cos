@@ -1,4 +1,4 @@
-### 基于Spring小程序商城
+### 基于SpringBoot小程序商城
 
 #### 安装环境
 
@@ -145,7 +145,7 @@ admin
 
 #### 演示视频
 
-[项目视频：基于Spring小程序商城](https://www.bilibili.com/video/BV1dP4y1N7wp/)
+[项目视频：基于SpringBoot小程序商城](https://www.bilibili.com/video/BV1dP4y1N7wp/)
 
 #### 获取方式
 
