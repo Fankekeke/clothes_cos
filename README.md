@@ -1,4 +1,4 @@
-### 基于SpringBoot小程序商城
+### 基于SpringBoot + Vue小程序商城
 
 #### 安装环境
 
