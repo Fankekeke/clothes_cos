@@ -1,4 +1,4 @@
-### 基于SpringBoot + Vue小程序商城
+### 基于SpringBoot + Vue服装小程序商城
 
 服饰定制、服饰商场、私域导购系统、定制化成衣
 
@@ -219,6 +219,7 @@ WeChat: `Storm_Berserker`
 More info: [悲伤的橘子树](https://berserker287.github.io/)
 
 <p><img align="center" src="https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/%E5%90%88%E4%BD%9C%E7%89%A9%E6%96%99%E6%A0%B7%E5%BC%8F%20(3).png" alt="fankekeke" /></p>
+
 
 
 
