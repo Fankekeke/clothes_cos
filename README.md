@@ -1,32 +1,17 @@
-### 基于SpringBoot + Vue服装小程序商城
+![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-服饰定制、服饰商场、私域导购系统、定制化成衣
+![](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
 
-##### 运营决策与安全合规
-###### 管理员数据统计： 聚合销售额、用户增长及商品热度等多维指标，通过可视化报表辅助平台进行经营决策。
+![](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-###### 管理员设计师审核： 严格核验设计师资质与原创能力，从源头把控入驻质量，构建专业且高水平的服饰生态。
+# 基于 SpringBoot + Vue 的衣装服饰小程序 (Clothing & Fashion Mini Program)
 
-###### 论坛/公告管理： 统一发布商城动态并监管社区言论，通过精细化内容运营，营造积极的潮流穿搭讨论氛围。
+设计师入驻 · 商品交易 · 购物车结算 · 论坛社区 · 在线沟通 · 订单评价 · 数据统计 · 收货地址
 
-##### 设计师管理与商品运营
-###### 设计师管理/申请： 开放设计师入驻通道并维护其个人主页，建立从“申请入驻”到“品牌展示”的全流程体系。
-
-###### 商品管理/修改： 支持对服饰款式、尺码、面料等信息进行实时更新，确保商品详情页数据的准确与美观。
-
-##### 交易闭环与履约服务
-###### 购物车/订单管理： 实现商品的一键合并支付与全生命周期状态追踪，提升用户的下单体验与物流查询效率。
-
-###### 地址管理/收货： 提供多地址快速切换与精准维护功能，保障服饰配送流程的准确性，降低末端投递风险。
-
-###### 订单付款/评价： 支持多种主流支付渠道，并引导用户分享真实的穿着反馈，为其他消费者提供决策参考。
-
-##### 社区互动与即时协同
-###### 论坛回复管理： 用户与设计师在社区内深度互动，通过评论交流穿搭心得，有效增强平台的社交粘性与活跃度。
-
-###### 消息通知系统： 实时推送订单状态、私信回复及系统提醒，确保用户与设计师之间的关键信息实现零延迟传达。
+本项目是一套面向服装品牌、独立设计师及穿搭爱好者的服饰交易与社区互动小程序，采用前后端分离架构，覆盖管理员、普通用户与设计师三类角色。系统围绕"商品管理、购物车结算、订单支付、设计师入驻审核、论坛社区、在线沟通、订单评价、数据统计"等核心业务设计，支持用户浏览商品、加入购物车、下单支付、发布论坛帖子、与设计师在线沟通，设计师可管理个人商品、处理订单，管理员负责平台运营、设计师审核、数据统计与内容管理，实现从商品展示、购物下单、设计师入驻到社区互动的全流程数字化管理，适用于服装品牌商城、设计师集合平台、穿搭社区小程序及服饰电商运营。
 
 #### 安装环境
+️**注意**：请确保您的开发环境已安装以下依赖。
 
 JAVA 环境 
 
@@ -34,150 +19,169 @@ Node.js环境 [https://nodejs.org/en/] 选择14.17
 
 Yarn 打开cmd， 输入npm install -g yarn !!!必须安装完毕nodejs
 
-Mysql 数据库 [https://blog.csdn.net/qq_40303031/article/details/88935262] 一定要把账户和密码记住
+Mysql 数据库 一定要把账户和密码记住
 
 redis
 
-Idea 编译器 [https://blog.csdn.net/weixin_44505194/article/details/104452880]
+Idea 编译器
 
-WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
+WebStorm OR VScode 编译器
 
 #### 采用技术及功能
 
 后端：SpringBoot、MybatisPlus、MySQL、Redis、
 前端：Vue、Apex、Antd、Axios
-报表：Spread.js
 
-平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件)
+平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件) + 百度地图 API
 
 平台后台：springboot(框架) + redis(缓存中间件) + shiro(权限中间件) + mybatisplus(orm) + restful风格接口 + mysql(数据库)
 
 开发环境：windows10 or windows7 ， vscode or webstorm ， idea + lambok
 
-管理员数据统计，管理员设计师审核，商品管理，设计师管理，订单管理，订单评价，公告信息管理，论坛管理，论坛回复，用户与设计师消息通知，用户收货地址管理
+---
 
-用户申请设计师，用户订单添加购物车，订单付款评价，论坛消息回复，收货地址新增修改，修改商品信息
+## 核心特性
+
+- **设计师入驻审核**：普通用户可提交设计师认证申请，管理员审核通过后用户获得设计师身份，可发布与管理个人商品。
+- **商品管理与购物车**：支持商品分类、多规格（颜色/尺码）管理、库存同步，用户可将商品加入购物车并批量结算。
+- **订单与支付**：用户下单后支持在线支付，订单状态全程可追踪（待付款/待发货/待收货/已完成/已取消），支付成功后自动更新订单状态。
+- **论坛社区**：用户可发布穿搭分享帖子、查看帖子详情、评论回复，形成服饰穿搭交流社区。
+- **在线沟通**：用户与设计师之间支持实时消息沟通，咨询商品、定制需求或订单问题，消息记录可追溯。
+- **订单评价**：用户完成订单后可对商品与服务进行评分与文字评价，评价信息供其他用户参考。
+- **数据统计**：管理员可查看平台核心数据，包括用户数、订单数、销售额、热门商品、设计师入驻情况等，支持数据可视化展示。
+---
+
+## 适用场景
+
+- 服装品牌官方商城小程序
+- 独立设计师服饰集合平台
+- 校园/社区穿搭分享社区
+- 服装定制与设计师对接平台
+- 服饰电商与社交结合的小程序
+- 潮流服饰交易与交流平台
+---
+
+## 功能模块概览
+
+## 管理员端
+
+管理员负责平台整体运营、数据统计、内容审核与系统管理：
+
+### 数据统计
+
+- **数据统计**：查看平台核心运营数据，包括注册用户数、设计师数量、商品总数、订单总数、交易金额、热门商品排行、论坛帖子数等，支持按时间范围筛选与数据可视化展示（图表/报表）。
+
+### 审核与管理
+
+- **设计师审核**：查看用户提交的设计师认证申请，包括申请人信息、身份证认证、作品集/设计作品、申请理由，支持审核通过或驳回，并填写审核意见。
+- **用户管理**：管理注册用户信息，包括姓名、手机号、注册时间、账户状态、是否为设计师，支持账号启用/禁用。
+- **设计师管理**：管理已认证设计师信息，包括设计师姓名、作品数量、订单数、评分、入驻时间，支持设计师信息编辑与禁用。
+
+### 商品与订单管理
+
+- **商品管理**：管理全平台商品信息，包括商品名称、分类、价格、库存、规格（颜色/尺码）、商品图片、上下架状态，支持商品审核与违规商品下架。
+- **订单管理**：查看所有订单列表，包括订单状态（待付款/待发货/待收货/已完成/已取消）、下单用户、商品信息、订单金额、支付状态，支持按状态、时间、用户筛选与订单处理。
+- **订单评价**：查看用户对订单的评价内容、评分与标签，支持评价审核与异常评价处理，统计商品平均评分。
+
+### 内容与沟通管理
+
+- **论坛管理**：管理论坛帖子，包括帖子标题、内容、发布者、发布时间、评论数、点赞数，支持帖子审核、置顶与违规帖子删除。
+- **论坛回复**：查看论坛帖子的评论回复内容，支持回复审核与违规评论删除。
+- **公告信息管理**：发布平台公告，包括活动通知、上新提醒、系统维护通知、规则变更等，支持置顶与定时发布。
+- **消息通知**：查看用户与设计师之间的沟通记录，支持消息审核与异常消息处理。
+
+---
+
+## 用户/设计师端
+
+用户面向平台注册用户，设计师为通过审核认证的用户，拥有额外的商品管理权限：
+
+### 账户与个人信息
+
+- **我的信息**：查看与维护个人基本信息，包括姓名、手机号、头像、个人简介，设计师可编辑个人作品集与擅长风格。
+- **申请设计师**：普通用户可提交设计师认证申请，填写个人信息、上传身份证认证、提交设计作品/作品集，等待管理员审核。
+
+### 购物与支付
+
+- **商品浏览**：浏览平台商品列表，按分类（上衣/裤装/裙装/套装等）、风格、价格等条件筛选，支持关键词搜索与排序。
+- **商铺搜索**：搜索设计师商铺，查看设计师主页、商品列表与个人作品。
+- **添加购物车**：将心仪商品添加到购物车，支持修改数量、选择规格（颜色/尺码）、删除商品，实时计算总价。
+- **购物车结算**：选择购物车中的商品进行结算，确认收货地址与订单信息，提交订单并完成在线支付。
+- **订单付款评价**：查看个人订单列表与订单状态，完成订单付款，订单完成后可对商品与服务进行评分与文字评价。
+
+### 收货地址管理
+
+- **收货地址新增修改**：管理个人收货地址，支持新增、编辑、删除收货地址，设置默认地址，地址信息包括姓名、手机号、省市区、详细地址。
+
+### 论坛与沟通
+
+- **论坛帖子查看消息回复**：浏览论坛帖子列表，查看帖子详情，发布评论回复，接收他人对自己帖子的回复通知，参与穿搭交流互动。
+- **在线沟通**：与设计师实时在线沟通，咨询商品信息、定制需求或订单问题，查看历史沟通记录。
+
+### 设计师专属功能
+
+- **修改商品信息**：设计师可管理个人发布的商品，包括商品名称、分类、价格、库存、规格、商品图片、上下架状态，支持商品编辑与下架。
+- **订单处理**：设计师查看个人商品的订单列表，处理待发货订单，更新发货状态与物流信息。
+
+---
+
+## 项目结构
+
+```text
+pharmacy-dispensing-system/
+├── backend/            # 后端 API 服务
+│   ├── src/
+│   │   ├── controllers/  # 控制器
+│   │   ├── models/       # 数据模型
+│   │   ├── routes/       # 路由
+│   │   └── services/     # 业务逻辑
+│   └── package.json
+├── frontend/           # 前端 Web 应用
+│   ├── src/
+│   │   ├── views/      # 页面视图
+│   │   ├── components/ # 公共组件
+│   │   └── store/      # 状态管理
+│   └── package.json
+├── docs/               # 项目文档与 API 接口说明
+├── LICENSE
+└── README.md
+```
+---
+
 
 #### 前台启动方式
 安装所需文件 yarn install 
 运行 yarn run dev
 
-#### 后端启动方式
-
-1.首先启动redis，进入redis目录终端。输入redis-server回车
-2.导入sql文件，修改数据库与redis连接配置
-3.idea中启动后端项目
-
-#### 示例代码
-
-``` java
-// 用户登陆注册
-String openid = JSON.parseObject(res).get("openid").toString();
-System.out.println("openid" + openid);
-Integer count = userInfoService.count(Wrappers.<UserInfo>lambdaQuery().eq(UserInfo::getOpenId, openid));
-if (count > 0) {
-    return R.ok(userInfoService.getOne(Wrappers.<UserInfo>lambdaQuery().eq(UserInfo::getOpenId, openid)));
-} else {
-    user.setOpenId(openid);
-    user.setCreateDate(DateUtil.formatDateTime(new Date()));
-    user.setCode("U-"+new Date().getTime());
-    user.setType(1);
-    userInfoService.save(user);
-    return R.ok(user);
-}
-```
-
-``` java
-// 查找聊天信息
-if (takeUser == userId) {
-    messageInfoService.update(Wrappers.<MessageInfo>lambdaUpdate().set(MessageInfo::getTaskStatus, 1)
-            .eq(MessageInfo::getTakeUser, takeUser).eq(MessageInfo::getSendUser, sendUser));
-} else {
-    messageInfoService.update(Wrappers.<MessageInfo>lambdaUpdate().set(MessageInfo::getTaskStatus, 1)
-            .eq(MessageInfo::getTakeUser, sendUser).eq(MessageInfo::getSendUser, takeUser));
-}
-return R.ok(messageInfoService.getMessageDetail(takeUser, sendUser));
-```
-
-``` sql
--- 订单统计
-SELECT
-DATE_FORMAT( spo.days, '%m-%d' ) AS days,
-COUNT( oi.`code` ) AS count,
-IFNULL( SUM( oi.price ), 0 ) AS orderPrice
-FROM
-(
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 0 DAY ) days UNION
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 1 DAY ) UNION
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 2 DAY ) UNION
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 3 DAY ) UNION
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 4 DAY ) UNION
-SELECT
-    DATE_SUB( curdate(), INTERVAL + 5 DAY ) UNION
-SELECT
-DATE_SUB( curdate(), INTERVAL + 6 DAY )) spo
-LEFT JOIN order_info oi ON (
-DATE_FORMAT( oi.create_date, '%Y-%m-%d' ) = DATE_FORMAT( spo.days, '%Y-%m-%d' ))
-GROUP BY
-days
-ORDER BY days ASC
-```
-
-``` sql
--- 根据商铺获取订单统计
-SELECT
-COUNT( 1 ) AS orderNum,
-IFNULL( SUM( oi.price ), 0 ) AS orderPrice,
-ui.avatar,
-ui.user_name,
-si.tag,
-si.introduction
-FROM
-order_info oi
-LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
-LEFT JOIN shop_info si ON ( si.id = ci.shop_id )
-LEFT JOIN user_info ui ON ( ui.id = si.user_id )
-WHERE
-1 = 1
-GROUP BY
-si.id
-```
-
-
-``` sql
--- 本月收益占比
-SELECT
-COUNT( oi.commodity_id ) AS orderNum,
-IFNULL( SUM( oi.price ), 0 ) AS orderPrice,
-ci.`name`
-FROM
-order_info oi
-LEFT JOIN commodity_info ci ON ( ci.id = oi.commodity_id )
-WHERE
-1 = 1
-AND DATE_FORMAT( oi.create_date, '%Y-%m' ) = DATE_FORMAT( NOW(), '%Y-%m' )
-GROUP BY
-oi.commodity_id
-```
-
 #### 默认后台账户密码
 [管理员]
 admin
-1234qwer
+123456
 
 #### 项目截图
+|  |  |
+|---------------------|---------------------|
+| ![](./assets/image%20(1).jpg) | ![](./assets/image%20(2).jpg) |
+| ![](./assets/image%20(3).jpg) | ![](./assets/image%20(4).jpg) |
+| ![](./assets/image%20(5).jpg) | ![](./assets/image%20(6).jpg) |
+| ![](./assets/image%20(7).jpg) | ![](./assets/image%20(8).jpg) |
+| ![](./assets/image%20(9).jpg) | ![](./assets/image%20(10).jpg) |
+| ![](./assets/image%20(11).jpg) | ![](./assets/image%20(12).jpg) |
+| ![](./assets/image%20(13).jpg) |
 
-暂无
-
+|  |  |
+|---------------------|---------------------|
+| ![](./assets/app_image%20(1).jpg) | ![](./assets/app_image%20(2).jpg) |
+| ![](./assets/app_image%20(3).jpg) | ![](./assets/app_image%20(4).jpg) |
+| ![](./assets/app_image%20(5).jpg) | ![](./assets/app_image%20(6).jpg) |
+| ![](./assets/app_image%20(7).jpg) | ![](./assets/app_image%20(8).jpg) |
+| ![](./assets/app_image%20(9).jpg) | ![](./assets/app_image%20(10).jpg) |
+| ![](./assets/app_image%20(11).jpg) | ![](./assets/app_image%20(12).jpg) |
+| ![](./assets/app_image%20(13).jpg) |
 
 #### 演示视频
 
-[项目视频：基于SpringBoot小程序商城](https://www.bilibili.com/video/BV1dP4y1N7wp/)
+暂无
 
 #### 获取方式
 
@@ -191,9 +195,10 @@ WeChat: `Storm_Berserker`
 
 > 项目部署调试不好包退！功能逻辑没讲明白包退！
 
-![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/work/936e9baf53eb9a217af4f89c616dc19.png)
+<div align=center><img align="center" src="./assets/product_word.png" alt="fankekeke" /></div>
 
 #### 其它资源
+[2026年-答辩顺利通过-客户评价🀄](https://berserker287.github.io/2026/06/29/2026%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
 [2025年-答辩顺利通过-客户评价🍜](https://berserker287.github.io/2025/06/18/2025%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
@@ -211,15 +216,14 @@ WeChat: `Storm_Berserker`
 
 [计算机专业毕业答辩小tips](https://zhuanlan.zhihu.com/p/145911029)
 
-
 #### 接JAVAWEB毕设，纯原创，价格公道，诚信第一
 
 `网站建设、小程序、H5、APP、各种系统 选题+开题报告+任务书+程序定制+安装调试+项目讲解+论文+答辩PPT`
 
 More info: [悲伤的橘子树](https://berserker287.github.io/)
 
-<p><img align="center" src="https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/%E5%90%88%E4%BD%9C%E7%89%A9%E6%96%99%E6%A0%B7%E5%BC%8F%20(3).png" alt="fankekeke" /></p>
+<div align="center"><img align="center" src="./assets/chat_qr_code.png" alt="fankekeke" width=250 /></div>
 
+<p><img align="center" src="./assets/wechat_group.png" alt="fankekeke" /></p>
 
-
-
+**感谢查看**
